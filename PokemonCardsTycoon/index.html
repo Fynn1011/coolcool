@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartensammler</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Kartensammler</h1>
+        <div class="stats">
+            <div class="stat">
+                <span>Guthaben:</span>
+                <span class="credits">1000</span>
+            </div>
+            <div class="stat">
+                <span>Gesammelte Karten:</span>
+                <span class="cards-count">0</span>
+            </div>
+            <div class="stat">
+                <span>Kartenwert:</span>
+                <span class="collection-value">0</span>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="pack-section">
+                <h2>Verfügbare Packs</h2>
+                <div class="packs">
+                    <div class="pack" data-pack="basic">
+                        <img src="/api/placeholder/64/64" alt="Basic Pack" class="pack-image">
+                        <div class="pack-name">Basic Pack</div>
+                        <div class="pack-price">100</div>
+                    </div>
+                    <div class="pack" data-pack="premium">
+                        <img src="/api/placeholder/64/64" alt="Premium Pack" class="pack-image">
+                        <div class="pack-name">Premium Pack</div>
+                        <div class="pack-price">250</div>
+                    </div>
+                    <div class="pack" data-pack="elite">
+                        <img src="/api/placeholder/64/64" alt="Elite Pack" class="pack-image">
+                        <div class="pack-name">Elite Pack</div>
+                        <div class="pack-price">500</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collection-section">
+                <h2>Deine Sammlung</h2>
+                <div class="collection">
+                    <div class="collection-empty">Öffne Packs, um Karten zu sammeln!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-banner" id="infoBanner"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>

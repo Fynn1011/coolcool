@@ -1,0 +1,340 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1e2e;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+h1 {
+    color: #ffd700;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 15px 0;
+    background-color: #2a2f45;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.credits {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.game-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pack-section, .collection-section {
+    flex: 1;
+    min-width: 300px;
+    background-color: #2a2f45;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.collection-section {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.packs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.pack {
+    width: 120px;
+    height: 160px;
+    background-color: #4a5173;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.pack:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.pack:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+}
+
+.pack-name {
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.pack-price {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    color: #ffd700;
+}
+
+.pack-image {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.rarity-common {
+    color: #b0b0b0;
+}
+
+.rarity-uncommon {
+    color: #4caf50;
+}
+
+.rarity-rare {
+    color: #2196f3;
+}
+
+.rarity-epic {
+    color: #9c27b0;
+}
+
+.rarity-legendary {
+    color: #ff9800;
+}
+
+.opening-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.card-display {
+    position: relative;
+    width: 200px;
+    height: 280px;
+    perspective: 1000px;
+    margin-bottom: 20px;
+}
+
+.card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-back {
+    background: linear-gradient(135deg, #4a5173 0%, #2a2f45 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-back img {
+    width: 80%;
+    height: auto;
+}
+
+.card-front {
+    transform: rotateY(180deg);
+    background-color: #3a4163;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-name {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 1em;
+}
+
+.card-image {
+    width: 100px;
+    height: 100px;
+    margin: 10px 0;
+    object-fit: contain;
+}
+
+.card-rarity {
+    font-size: 0.8em;
+    margin-bottom: 5px;
+}
+
+.card-value {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffd700;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.open-next, .collect-all {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffd700;
+    color: #1a1e2e;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 5px;
+}
+
+.open-next:hover, .collect-all:hover {
+    background-color: #ffee58;
+    transform: scale(1.05);
+}
+
+.collection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.collection-card {
+    background-color: #3a4163;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.collection-card-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+.collection-card-count {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 0.8em;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.sell-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff5722;
+    color: white;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 5px;
+}
+
+.sell-button:hover {
+    background-color: #ff7043;
+}
+
+.collection-empty {
+    color: #8a8e9e;
+    font-style: italic;
+    padding: 20px;
+}
+
+.info-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info-banner.show {
+    opacity: 1;
+}
