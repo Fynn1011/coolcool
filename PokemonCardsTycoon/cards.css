@@ -1,0 +1,307 @@
+/* Card Container Styles */
+.card-container {
+    position: relative;
+    width: 200px;
+    height: 280px;
+    transition: transform 0.3s ease;
+}
+
+.card-container:hover {
+    transform: translateY(-5px) scale(1.02);
+    z-index: 2;
+}
+
+/* Card SVG Styles */
+.card-svg {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Card Shine Effects */
+.card-container.legendary .card-background,
+.card-container.epic .card-background,
+.card-container.rare .card-background {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-container.legendary .card-background::after,
+.card-container.epic .card-background::after,
+.card-container.rare .card-background::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.05) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform-origin: top right;
+    animation: rotate 6s linear infinite;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-200%); }
+    100% { transform:/* Card Container Styles */
+        .card-container {
+            position: relative;
+            width: 200px;
+            height: 280px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card-container:hover {
+            transform: translateY(-5px) scale(1.02);
+            z-index: 2;
+        }
+        
+        /* Card SVG Styles */
+        .card-svg {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+        
+        /* Card Shine Effects */
+        .card-container.legendary .card-background,
+        .card-container.epic .card-background,
+        .card-container.rare .card-background {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animation für Karten beim Hover */
+        .card-container:hover {
+            animation: pulse 1.5s infinite;
+        }
+        
+        .card-container.legendary .card-background::after,
+        .card-container.epic .card-background::after,
+        .card-container.rare .card-background::after {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.05) 40%,
+                rgba(255, 255, 255, 0.5) 50%,
+                rgba(255, 255, 255, 0.05) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform-origin: top right;
+            animation: rotate 6s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-200%); }
+            100% { transform: translateX(200%); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateY(-5px) scale(1.02); }
+            50% { transform: translateY(-8px) scale(1.05); }
+            100% { transform: translateY(-5px) scale(1.02); }
+        }
+        
+        /* Collection Card Styles */
+        .collection-card {
+            position: relative;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        
+        .collection-card:hover {
+            z-index: 10;
+        }
+        
+        .collection-card-count {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-weight: bold;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+            border: 2px solid #ffd700;
+        }
+        
+        /* Pack Animation */
+        .pack {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pack::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0) 70%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .pack:hover::before {
+            opacity: 1;
+            animation: pulse-light 2s infinite;
+        }
+        
+        @keyframes pulse-light {
+            0% { transform: scale(0.95); opacity: 0.4; }
+            50% { transform: scale(1.05); opacity: 0.7; }
+            100% { transform: scale(0.95); opacity: 0.4; }
+        }
+        
+        /* Card Flip Animation */
+        .card-display {
+            perspective: 1000px;
+        }
+        
+        .card {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-back, .card-front {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-front {
+            transform: rotateY(180deg);
+        }
+        
+        /* Opening Animation */
+        .opening-animation {
+            animation: fadeIn 0.5s ease-in;
+            background: radial-gradient(circle at center, rgba(30, 30, 50, 0.95) 0%, rgba(10, 10, 20, 0.98) 100%);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Collection Section Enhancements */
+        .collection-section {
+            scrollbar-width: thin;
+            scrollbar-color: #ffd700 #2a2f45;
+        }
+        
+        .collection-section::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .collection-section::-webkit-scrollbar-track {
+            background: #2a2f45;
+            border-radius: 10px;
+        }
+        
+        .collection-section::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 10px;
+        }
+        
+        /* Button Improvements */
+        .open-next, .collect-all, .sell-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .open-next::after, .collect-all::after, .sell-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+            transition: all 0.5s ease;
+        }
+        
+        .open-next:hover::after, .collect-all:hover::after, .sell-button:hover::after {
+            left: 100%;
+        }
+        
+        /* Info Banner Enhancement */
+        .info-banner {
+            border-left: 4px solid #ffd700;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transform: translateX(-50%) translateY(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .info-banner.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        
+        /* Rarity Colors for Card Names */
+        .rarity-common {
+            text-shadow: 0 0 5px rgba(176, 176, 176, 0.7);
+        }
+        
+        .rarity-uncommon {
+            text-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
+        }
+        
+        .rarity-rare {
+            text-shadow: 0 0 5px rgba(33, 150, 243, 0.7);
+        }
+        
+        .rarity-epic {
+            text-shadow: 0 0 5px rgba(156, 39, 176, 0.7);
+        }
+        
+        .rarity-legendary {
+            text-shadow: 0 0 8px rgba(255, 152, 0, 0.8);
+            animation: legendaryPulse 2s infinite;
+        }
+        
+        @keyframes legendaryPulse {
+            0% { text-shadow: 0 0 5px rgba(255, 152, 0, 0.8); }
+            50% { text-shadow: 0 0 15px rgba(255, 215, 0, 1); }
+            100% { text-shadow: 0 0 5px rgba(255, 152, 0, 0.8); }
+        }
+    
