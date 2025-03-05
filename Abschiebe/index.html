@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abschiebe-Simulator</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Abschiebe-Simulator</h1>
+        <p>Entscheiden Sie anhand der Fakten, ob die Person bleiben darf oder abgeschoben werden soll.</p>
+    </div>
+
+    <div class="case-container" id="case-display">
+        <div class="case-title" id="case-name">Fall wird geladen...</div>
+        
+        <div class="case-details">
+            <div class="case-info" id="case-info">
+                <!-- Info wird über JavaScript gefüllt -->
+            </div>
+            
+            <div class="case-statement" id="case-statement">
+                <!-- Aussage wird über JavaScript gefüllt -->
+            </div>
+        </div>
+        
+        <div class="decision-buttons">
+            <button class="button-accept" id="accept-button">Bleiberecht gewähren</button>
+            <button class="button-reject" id="reject-button">Abschieben</button>
+        </div>
+        
+        <div class="feedback" id="feedback"></div>
+        <button class="next-case" id="next-case" style="display: none;">Nächster Fall</button>
+    </div>
+    
+    <div class="stats-container">
+        <div class="stats-title">Ihre Statistik</div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-label">Entschiedene Fälle</div>
+                <div class="stat-value" id="total-cases">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Korrekte Entscheidungen</div>
+                <div class="stat-value" id="correct-decisions">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Genauigkeit</div>
+                <div class="stat-value" id="accuracy">0%</div>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
