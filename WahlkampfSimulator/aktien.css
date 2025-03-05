@@ -1,0 +1,636 @@
+/* Aktienmarkt Styling */
+.stock-market-panel {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.stock-market-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.stock-market-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.portfolio-summary {
+    background-color: #f5f7fa;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.portfolio-item {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.portfolio-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.portfolio-value {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.portfolio-change {
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.change-positive {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.change-negative {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.change-neutral {
+    background-color: #f5f5f5;
+    color: #757575;
+}
+
+.stock-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.stock-card {
+    position: relative;
+    background-color: white;
+    border-radius: 8px;
+    padding: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.stock-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.stock-card.owned {
+    border-left: 3px solid #4caf50;
+}
+
+.stock-card.risky {
+    border-left: 3px solid #f44336;
+}
+
+.stock-card.stable {
+    border-left: 3px solid #2196f3;
+}
+
+.stock-card.growth {
+    border-left: 3px solid #ff9800;
+}
+
+.owned-tag {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: #4caf50;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+}
+
+.stock-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.stock-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.stock-tech { background: linear-gradient(135deg, #1565C0, #0D47A1); }
+.stock-industry { background: linear-gradient(135deg, #424242, #212121); }
+.stock-finance { background: linear-gradient(135deg, #2E7D32, #1B5E20); }
+.stock-energy { background: linear-gradient(135deg, #EF6C00, #E65100); }
+.stock-pharma { background: linear-gradient(135deg, #0097A7, #006064); }
+.stock-consumer { background: linear-gradient(135deg, #C62828, #B71C1C); }
+
+.stock-info {
+    flex-grow: 1;
+}
+
+.stock-name {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.stock-symbol {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.stock-details {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.75rem 0;
+}
+
+.stock-detail-item {
+    text-align: center;
+    flex: 1;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 0.2rem;
+}
+
+.detail-value {
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.stock-description {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 0.75rem;
+    flex-grow: 1;
+}
+
+.stock-trend {
+    height: 40px;
+    margin: 0.5rem 0;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.trend-chart {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.trend-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #2196f3;
+    stroke-width: 2;
+}
+
+.trend-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    fill: rgba(33, 150, 243, 0.1);
+}
+
+.trend-up .trend-line {
+    stroke: #4caf50;
+}
+
+.trend-up .trend-fill {
+    fill: rgba(76, 175, 80, 0.1);
+}
+
+.trend-down .trend-line {
+    stroke: #f44336;
+}
+
+.trend-down .trend-fill {
+    fill: rgba(244, 67, 54, 0.1);
+}
+
+.stock-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eee;
+}
+
+.stock-btn {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+}
+
+.buy-btn {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.buy-btn:hover {
+    background-color: #c8e6c9;
+}
+
+.sell-btn {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+.sell-btn:hover {
+    background-color: #ffcdd2;
+}
+
+.risk-label {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    margin-left: 0.5rem;
+}
+
+.risk-high {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.risk-medium {
+    background-color: #fff8e1;
+    color: #f57f17;
+}
+
+.risk-low {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.stock-modal-content {
+    width: 500px;
+    max-width: 90vw;
+}
+
+.transaction-form {
+    margin-top: 1rem;
+}
+
+.amount-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.amount-label {
+    margin-right: 1rem;
+    font-weight: 500;
+}
+
+.amount-input {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.amount-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.amount-btn:hover {
+    background-color: #bdbdbd;
+}
+
+.amount-field {
+    width: 100px;
+    text-align: center;
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.amount-total {
+    margin-top: 0.5rem;
+    text-align: right;
+    font-weight: bold;
+}
+
+.transaction-summary {
+    background-color: #f5f7fa;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.summary-label {
+    font-weight: 500;
+}
+
+.summary-total {
+    font-weight: bold;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #ddd;
+}
+
+.stock-history {
+    margin-top: 1rem;
+}
+
+.history-title {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.history-chart {
+    height: 150px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.history-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Stock Market Filter */
+.stock-filter {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-option {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-option:hover {
+    background-color: #e0e0e0;
+}
+
+.filter-option.selected {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Stock Search */
+.stock-search {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.stock-search input {
+    width: 100%;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #757575;
+}
+
+/* Market Index Indicator */
+.market-index {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f5f7fa;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.index-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.index-value {
+    font-weight: bold;
+}
+
+.index-change {
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+/* Economic cycle indicator */
+.economic-cycle {
+    display: flex;
+    align-items: center;
+    background-color: #f5f7fa;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.cycle-label {
+    margin-right: 0.5rem;
+    font-weight: 500;
+}
+
+.cycle-value {
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.cycle-growth {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.cycle-peak {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.cycle-recession {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.cycle-recovery {
+    background-color: #fff8e1;
+    color: #f57f17;
+}
+
+/* Stock Trade History */
+.trade-history {
+    margin-top: 1rem;
+}
+
+.trade-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.trade-history-title {
+    font-weight: 500;
+}
+
+.trade-history-toggle {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.trade-list {
+    background-color: #f5f7fa;
+    border-radius: 4px;
+    padding: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.trade-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+    font-size: 0.85rem;
+}
+
+.trade-item:last-child {
+    border-bottom: none;
+}
+
+.trade-date {
+    color: #666;
+}
+
+.trade-action {
+    font-weight: 500;
+}
+
+.trade-buy {
+    color: #2e7d32;
+}
+
+.trade-sell {
+    color: #c62828;
+}
+
+.trade-details {
+    text-align: right;
+}
+
+/* Responsive Adaptations */
+@media (max-width: 768px) {
+    .stock-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .portfolio-summary {
+        flex-direction: column;
+    }
+    
+    .portfolio-item {
+        width: 100%;
+    }
+    
+    .stock-market-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .amount-control {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .amount-label {
+        margin-bottom: 0.5rem;
+    }
+}

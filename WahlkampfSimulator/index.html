@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deutscher Wahlkampf-Simulator</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="staff.css">
+    <link rel="stylesheet" href="bundeslaender.css">
+</head>
+<body>
+    <header>
+        <h1>Deutscher Wahlkampf-Simulator</h1>
+        <p>Führe deine Partei zum Sieg bei den Bundestagswahlen</p>
+    </header>
+    
+    <main>
+        <div id="start-screen" class="panel">
+            <h2>Willkommen zum Wahlkampf-Simulator</h2>
+            <p>Wähle deine Partei und starte deine politische Karriere. Führe deinen Wahlkampf, reagiere auf aktuelle Ereignisse, und versuche, die Mehrheit der Wähler zu überzeugen.</p>
+            
+            <div class="party-selection">
+                <div class="party-card cdu" data-party="cdu" onclick="selectParty('cdu')">
+                    <div class="party-icon">CDU</div>
+                    <h3>CDU/CSU</h3>
+                    <p>Konservative Volkspartei mit wirtschaftsfreundlicher Politik</p>
+                </div>
+                <div class="party-card spd" data-party="spd" onclick="selectParty('spd')">
+                    <div class="party-icon">SPD</div>
+                    <h3>SPD</h3>
+                    <p>Sozialdemokratische Partei mit Fokus auf soziale Gerechtigkeit</p>
+                </div>
+                <div class="party-card gruene" data-party="gruene" onclick="selectParty('gruene')">
+                    <div class="party-icon">GRÜ</div>
+                    <h3>Die Grünen</h3>
+                    <p>Umwelt- und klimapolitisch orientierte Partei</p>
+                </div>
+                <div class="party-card fdp" data-party="fdp" onclick="selectParty('fdp')">
+                    <div class="party-icon">FDP</div>
+                    <h3>FDP</h3>
+                    <p>Liberale Partei mit Fokus auf Wirtschaftsfreiheit</p>
+                </div>
+                <div class="party-card linke" data-party="linke" onclick="selectParty('linke')">
+                    <div class="party-icon">LIN</div>
+                    <h3>Die Linke</h3>
+                    <p>Linke Partei mit Fokus auf soziale Gerechtigkeit und Umverteilung</p>
+                </div>
+                <div class="party-card afd" data-party="afd" onclick="selectParty('afd')">
+                    <div class="party-icon">AFD</div>
+                    <h3>AfD</h3>
+                    <p>Rechtskonservative Partei mit nationaler Ausrichtung</p>
+                </div>
+            </div>
+            
+            <div class="settings">
+                <h3>Spieleinstellungen</h3>
+                <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                    <div>
+                        <label for="difficulty">Schwierigkeitsgrad:</label>
+                        <select id="difficulty">
+                            <option value="easy">Leicht</option>
+                            <option value="medium" selected>Mittel</option>
+                            <option value="hard">Schwer</option>
+                        </select>
+                    </div><div>
+                        <label for="campaigns">Anzahl der Wahlkämpfe:</label>
+                        <select id="campaigns">
+                            <option value="1">1 Wahl</option>
+                            <option value="3" selected>3 Wahlen</option>
+                            <option value="5">5 Wahlen</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="events">Event-Häufigkeit:</label>
+                        <select id="events">
+                            <option value="low">Niedrig</option>
+                            <option value="medium" selected>Mittel</option>
+                            <option value="high">Hoch</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="realism">Realismus:</label>
+                        <select id="realism">
+                            <option value="arcade">Arcade</option>
+                            <option value="balanced" selected>Ausgewogen</option>
+                            <option value="simulation">Simulation</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="start-game" class="action-btn" style="margin-top: 1rem; width: 100%;" onclick="startGame()">Wahlkampf starten</button>
+        </div>
+        
+        <div id="game-screen" class="game-container" style="display: none;">
+            <div class="dashboard">
+                <div class="main-panel panel">
+                    <div class="party-info">
+                        <h2 id="party-name">CDU/CSU</h2>
+                        <p id="current-turn">Wahlkampf 2025: 18 Monate bis zur Wahl</p>
+                    </div>
+                    
+                    <div class="resources">
+                        <div class="resource">
+                            <div>Budget</div>
+                            <div id="budget">2.500.000 €</div>
+                        </div>
+                        <div class="resource">
+                            <div>Mitglieder</div>
+                            <div id="members">300.000</div>
+                        </div>
+                        <div class="resource">
+                            <div>Umfragewerte</div>
+                            <div id="polls">32%</div>
+                        </div>
+                        <div class="resource">
+                            <div>Medienresonanz</div>
+                            <div id="media">Mittel</div>
+                        </div>
+                        <div class="resource">
+                            <div>Spenden</div>
+                            <div id="donations">+ 125.000 €/Monat</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Aktionen</h3>
+                    <div class="actions">
+                        <button class="action-btn" data-action="campaign" onclick="showActionModal('campaign')">
+                            Wahlkampfveranstaltung
+                            <span>150.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="ads" onclick="showActionModal('ads')">
+                            Werbekampagne starten
+                            <span>250.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="policy" onclick="showActionModal('policy')">
+                            Positionspapier verfassen
+                            <span>50.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="recruit" onclick="showActionModal('recruit')">
+                            Mitgliederrekrutierung
+                            <span>100.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="negative" onclick="showActionModal('negative')">
+                            Negativkampagne
+                            <span>180.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="scandal" onclick="showActionModal('scandal')">
+                            Skandal bekämpfen
+                            <span>200.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="fundraiser" onclick="showActionModal('fundraiser')">
+                            Spendengala organisieren
+                            <span>75.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="debate" onclick="showActionModal('debate')">
+                            TV-Debatte vorbereiten
+                            <span>120.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="research" onclick="showActionModal('research')">
+                            Meinungsforschung
+                            <span>80.000 €</span>
+                        </button>
+                        <button class="action-btn" data-action="coalition" onclick="showActionModal('coalition')">
+                            Koalitionsaussage
+                            <span>30.000 €</span>
+                        </button>
+                    </div>
+                    
+                    <div class="tab-container">
+                        <div class="tabs">
+                            <div class="tab active" data-tab="events" onclick="changeTab('events')">Ereignisse</div>
+                            <div class="tab" data-tab="staff" onclick="changeTab('staff')">Personal</div>
+                            <div class="tab" data-tab="issues" onclick="changeTab('issues')">Themen</div>
+                            <div class="tab" data-tab="regions" onclick="changeTab('regions')">Bundesländer</div>
+                            <div class="tab" data-tab="relations" onclick="changeTab('relations')">Parteien</div>
+                        </div>
+                        
+                        <div class="tab-content active" data-tab="events">
+                            <h3>Aktuelle Ereignisse</h3>
+                            <div class="event-log">
+                                <div class="log-entry">Der Wahlkampf hat begonnen. Als erste Amtshandlung hast du ein Wahlkampfteam zusammengestellt.</div>
+                            </div>
+                        </div>
+                        
+<!-- Staff Section Update -->
+<div class="tab-content" data-tab="staff">
+    <div class="staff-header">
+        <h3>Wahlkampfteam</h3>
+        <div class="staff-header-actions">
+            <button class="action-btn" onclick="showStaffMarket()">Neues Personal einstellen</button>
+            <span class="team-stats">Gesamtstärke: <span id="team-strength">28</span>/40</span>
+        </div>
+        <p>Organisiere dein Team effektiv, um deine Kampagne zum Erfolg zu führen.</p>
+    </div>
+    
+    <div class="staff-control-panel">
+        <div class="staff-filters">
+            <select id="staff-sort" onchange="sortStaff()">
+                <option value="role">Nach Position</option>
+                <option value="skill">Nach Fähigkeit</option>
+                <option value="salary">Nach Gehalt</option>
+                <option value="exp">Nach Erfahrung</option>
+            </select>
+            <div class="search-box">
+                <input type="text" id="staff-search" placeholder="Personal suchen..." oninput="filterStaff()">
+                <i class="search-icon">🔍</i>
+            </div>
+        </div>
+        <div class="staff-budget">
+            <div>Personalkosten: <span id="staff-total-cost">130.000 €</span> pro Monat</div>
+            <div class="budget-bar">
+                <div class="budget-fill" style="width: 35%;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="staff-container">
+        <div class="staff-list" id="active-staff-list">
+            <!-- Dynamic content will be generated by JavaScript -->
+        </div>
+    </div>
+    
+    <div class="staff-details-panel">
+        <h4>Personal-Details</h4>
+        <div class="staff-details-content" id="staff-details">
+            <p>Wähle eine Person aus, um Details anzuzeigen.</p>
+        </div>
+    </div>
+    
+    <div class="staff-training-panel">
+        <h4>Personal entwickeln</h4>
+        <div class="training-options">
+            <button class="training-option" data-type="leadership" onclick="trainStaff('leadership')">
+                <div class="training-icon">👔</div>
+                <div class="training-info">
+                    <span class="training-title">Führungstraining</span>
+                    <span class="training-cost">50.000 €</span>
+                </div>
+            </button>
+            <button class="training-option" data-type="media" onclick="trainStaff('media')">
+                <div class="training-icon">📱</div>
+                <div class="training-info">
+                    <span class="training-title">Medientraining</span>
+                    <span class="training-cost">35.000 €</span>
+                </div>
+            </button>
+            <button class="training-option" data-type="strategy" onclick="trainStaff('strategy')">
+                <div class="training-icon">📊</div>
+                <div class="training-info">
+                    <span class="training-title">Strategietraining</span>
+                    <span class="training-cost">40.000 €</span>
+                </div>
+            </button>
+            <button class="training-option" data-type="field" onclick="trainStaff('field')">
+                <div class="training-icon">🚗</div>
+                <div class="training-info">
+                    <span class="training-title">Feldeinsatztraining</span>
+                    <span class="training-cost">25.000 €</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Staff Market Modal -->
+<div id="staff-market-modal" class="modal">
+    <div class="modal-content staff-market-content">
+        <div class="modal-header">
+            <h3>Personal einstellen</h3>
+            <span class="close-btn" onclick="closeStaffMarket()">&times;</span>
+        </div>
+        <div class="staff-market-filters">
+            <select id="market-filter-role">
+                <option value="all">Alle Positionen</option>
+                <option value="strategy">Strategen</option>
+                <option value="media">Medienprofis</option>
+                <option value="field">Kampagnenkoordinatoren</option>
+                <option value="finance">Finanzexperten</option>
+            </select>
+            <div class="market-budget">
+                <span>Verfügbares Budget: </span>
+                <span id="available-hiring-budget">2.500.000 €</span>
+            </div>
+        </div>
+        
+        <div class="staff-candidates-list" id="staff-candidates">
+            <!-- Will be populated dynamically -->
+        </div>
+        
+        <div class="staff-market-footer">
+            <button class="action-btn" onclick="refreshCandidates()">Neue Kandidaten (25.000 €)</button>
+            <button class="action-btn" onclick="closeStaffMarket()">Schließen</button>
+        </div>
+    </div>
+</div>
+
+<!-- Staff Detail Modal -->
+<div id="staff-detail-modal" class="modal">
+    <div class="modal-content staff-detail-content">
+        <div class="modal-header">
+            <h3 id="detail-staff-name">Mitarbeiter-Details</h3>
+            <span class="close-btn" onclick="closeStaffDetailModal()">&times;</span>
+        </div>
+        <div class="staff-detail-container" id="detail-container">
+            <!-- Will be populated dynamically -->
+        </div>
+        <div class="staff-detail-footer">
+            <button class="action-btn danger-btn" id="fire-staff-btn" onclick="fireStaff()">Entlassen</button>
+            <button class="action-btn" onclick="closeStaffDetailModal()">Schließen</button>
+        </div>
+    </div>
+</div>
+                        
+                        <div class="tab-content" data-tab="issues">
+                            <h3>Politische Themen</h3>
+                            <p>Positioniere deine Partei zu wichtigen Themen und reagiere auf aktuelle Debatten.</p>
+                            
+                            <div class="issue-grid">
+                                <div class="issue-card" data-issue="economy">
+                                    <div class="issue-title">Wirtschaft & Steuern</div>
+                                    <div class="issue-description">Aktuelle Position: Steuerentlastungen für mittlere Einkommen, Förderung des Mittelstands</div>
+                                </div>
+                                <div class="issue-card" data-issue="environment">
+                                    <div class="issue-title">Umwelt & Klima</div>
+                                    <div class="issue-description">Aktuelle Position: Moderate Klimapolitik mit Fokus auf Innovation statt Verbote</div>
+                                </div>
+                                <div class="issue-card" data-issue="social">
+                                    <div class="issue-title">Soziales & Rente</div>
+                                    <div class="issue-description">Aktuelle Position: Beibehaltung des aktuellen Rentensystems mit kleinen Anpassungen</div>
+                                </div>
+                                <div class="issue-card" data-issue="security">
+                                    <div class="issue-title">Innere Sicherheit</div>
+                                    <div class="issue-description">Aktuelle Position: Stärkung von Polizei und Sicherheitsbehörden</div>
+                                </div>
+                                <div class="issue-card" data-issue="migration">
+                                    <div class="issue-title">Migration</div>
+                                    <div class="issue-description">Aktuelle Position: Gesteuerte Einwanderung nach wirtschaftlichen Kriterien</div>
+                                </div>
+                                <div class="issue-card" data-issue="digital">
+                                    <div class="issue-title">Digitalisierung</div>
+                                    <div class="issue-description">Aktuelle Position: Ausbau der digitalen Infrastruktur, Förderung von Startups</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-content" data-tab="regions">
+                            <h3>Bundesländer</h3>
+<!-- Füge diesen Code direkt unter der <h3>Bundesländer</h3> im regions tab-content Bereich ein -->
+<div class="states-control-panel">
+    <div class="states-filters">
+        <select id="states-region-filter" onchange="filterStates()">
+            <option value="all">Alle Bundesländer</option>
+            <option value="east">Ostdeutschland (Neue Bundesländer)</option>
+            <option value="west">Westdeutschland (Alte Bundesländer)</option>
+        </select>
+        
+        <select id="states-sort" onchange="sortStates()">
+            <option value="name">Nach Name</option>
+            <option value="support-desc">Höchste Zustimmung</option>
+            <option value="support-asc">Niedrigste Zustimmung</option>
+            <option value="population">Nach Einwohnern</option>
+        </select>
+    </div>
+    
+    <div class="states-actions">
+        <button class="action-btn small-btn" onclick="showRegionalCampaignModal()">Regionale Kampagne</button>
+        <button class="action-btn small-btn" onclick="resetStateFocus()">Fokus zurücksetzen</button>
+    </div>
+</div>
+
+<!-- Container für die Bundesländer-Karten (Bestehender Code) -->
+<div class="states-map">
+    <!-- Hier werden die Bundesländer-Karten eingefügt -->
+</div>
+
+<!-- Modal für regionale Kampagnen -->
+<div id="regional-campaign-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Regionale Kampagne planen</h3>
+            <span class="close-btn" onclick="closeRegionalCampaignModal()">&times;</span>
+        </div>
+        <div id="regional-campaign-content">
+            <p>Wähle die Bundesländer aus, in denen du eine regionale Kampagne durchführen möchtest:</p>
+            
+            <div class="state-selection">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+            
+            <div class="campaign-cost">
+                <p>Kosten: <span id="regional-campaign-cost">100.000 €</span></p>
+            </div>
+            
+            <div class="campaign-options">
+                <h4>Kampagnenart:</h4>
+                <select id="campaign-type">
+                    <option value="standard">Standard-Kampagne (+1,5% in ausgewählten Ländern)</option>
+                    <option value="intensive">Intensive Kampagne (+3% in ausgewählten Ländern)</option>
+                    <option value="focused">Fokussierte Kampagne (+4,5% in ausgewählten Ländern)</option>
+                </select>
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; justify-content: space-between;">
+                <button class="action-btn" onclick="closeRegionalCampaignModal()">Abbrechen</button>
+                <button class="action-btn" onclick="startRegionalCampaign()">Kampagne starten</button>
+            </div>
+        </div>
+    </div>
+</div>
+                            <p>Verfolge deine Umfragewerte in den verschiedenen Bundesländern und plane regionale Kampagnen.</p>
+                            
+                            <div class="states-map">
+                                <div class="state">
+                                    <div class="state-name">Bayern</div>
+                                    <div class="state-value">45% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Baden-Württemberg</div>
+                                    <div class="state-value">38% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">NRW</div>
+                                    <div class="state-value">33% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Hessen</div>
+                                    <div class="state-value">35% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Niedersachsen</div>
+                                    <div class="state-value">28% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Rheinland-Pfalz</div>
+                                    <div class="state-value">30% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Sachsen</div>
+                                    <div class="state-value">27% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Brandenburg</div>
+                                    <div class="state-value">22% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Sachsen-Anhalt</div>
+                                    <div class="state-value">25% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Thüringen</div>
+                                    <div class="state-value">24% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Schleswig-Holstein</div>
+                                    <div class="state-value">31% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Saarland</div>
+                                    <div class="state-value">34% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Berlin</div>
+                                    <div class="state-value">18% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Bremen</div>
+                                    <div class="state-value">22% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Hamburg</div>
+                                    <div class="state-value">26% Zustimmung</div>
+                                </div>
+                                <div class="state">
+                                    <div class="state-name">Mecklenburg-Vorpommern</div>
+                                    <div class="state-value">23% Zustimmung</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Parteibeziehungen Tab -->
+                        <div class="tab-content" data-tab="relations">
+                            <h3>Parteibeziehungen</h3>
+                            <p>Übersicht über deine Beziehungen zu anderen Parteien und Koalitionsausschlüsse.</p>
+                            
+                            <div id="party-relations">
+                                <!-- Wird dynamisch mit Beziehungen zu anderen Parteien gefüllt -->
+                            </div>
+                            
+                            <div class="coalition-tab">
+                                <h4>Koalitionsausschlüsse</h4>
+                                <p>Aktuelle Ausschlüsse: <span id="coalition-exclusions">Keine</span></p>
+                                
+                                <div class="coalition-exclusion-options">
+                                    <!-- Wird dynamisch mit möglichen Koalitionsausschlüssen gefüllt -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar panel">
+                    <h3>Aktuelle Umfragen</h3>
+                    <div class="poll-results">
+                        <div class="poll-bar">
+                            <div class="poll-label">CDU/CSU</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar cdu" style="width: 32%;"></div>
+                            </div>
+                            <div class="poll-percentage">32%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">SPD</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar spd" style="width: 25%;"></div>
+                            </div>
+                            <div class="poll-percentage">25%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">Grüne</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar gruene" style="width: 18%;"></div>
+                            </div>
+                            <div class="poll-percentage">18%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">FDP</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar fdp" style="width: 10%;"></div>
+                            </div>
+                            <div class="poll-percentage">10%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">AfD</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar afd" style="width: 10%;"></div>
+                            </div>
+                            <div class="poll-percentage">10%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">Linke</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar linke" style="width: 5%;"></div>
+                            </div>
+                            <div class="poll-percentage">5%</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h3>Kalender</h3>
+                        <div id="calendar-info">
+                            <strong>Monat:</strong> Januar 2025<br>
+                            <strong>Zeit bis zur Wahl:</strong> 18 Monate<br>
+                            <strong>Nächste Debatte:</strong> In 3 Monaten<br>
+                            <strong>Wichtige Ereignisse:</strong> Parteitag in 2 Monaten
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+                        <button id="next-turn" class="action-btn" onclick="nextTurn()">Nächster Monat →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modals -->
+        <div id="event-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Neues Ereignis</h3>
+                    <span class="close-btn" onclick="closeModals()">&times;</span>
+                </div>
+                <div id="event-content">
+                    <!-- Dynamisch befüllt je nach Ereignis -->
+                </div>
+            </div>
+        </div>
+        
+        <div id="action-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="action-title">Aktion durchführen</h3>
+                    <span class="close-btn" onclick="closeModals()">&times;</span>
+                </div>
+                <div id="action-content">
+                    <!-- Dynamisch befüllt je nach Aktion -->
+                </div>
+            </div>
+        </div>
+        
+        <div id="election-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Wahlergebnisse</h3>
+                    <span class="close-btn" onclick="closeModals()">&times;</span>
+                </div>
+                <div class="election-results">
+                    <div class="winner-banner">
+                        <h2>Wahlergebnis 2025</h2>
+                        <h3>CDU/CSU wird stärkste Kraft mit 33.5%</h3>
+                    </div>
+                    
+                    <div class="poll-results">
+                        <div class="poll-bar">
+                            <div class="poll-label">CDU/CSU</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar cdu" style="width: 33.5%;"></div>
+                            </div>
+                            <div class="poll-percentage">33.5%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">SPD</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar spd" style="width: 25.5%;"></div>
+                            </div>
+                            <div class="poll-percentage">25.5%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">Grüne</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar gruene" style="width: 17.8%;"></div>
+                            </div>
+                            <div class="poll-percentage">17.8%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">FDP</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar fdp" style="width: 9.5%;"></div>
+                            </div>
+                            <div class="poll-percentage">9.5%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">AfD</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar afd" style="width: 9.2%;"></div>
+                            </div>
+                            <div class="poll-percentage">9.2%</div>
+                        </div>
+                        <div class="poll-bar">
+                            <div class="poll-label">Linke</div>
+                            <div class="poll-progress">
+                                <div class="progress-bar linke" style="width: 4.5%;"></div>
+                            </div>
+                            <div class="poll-percentage">4.5%</div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 1.5rem;">Koalitionsoptionen</h3>
+                    <div class="coalition-options">
+                        <!-- Dynamisch befüllt je nach Wahlergebnis -->
+                    </div>
+                    
+                    <button id="continue-game" class="action-btn" style="margin-top: 1.5rem; width: 100%;" onclick="continueAfterElection()">Zum nächsten Wahlkampf</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="notification" class="notification"></div>
+    </main>
+    
+    <script src="index.js"></script>
+    <script src="staff.js"></script>
+    <script src="bundeslaender.js"></script>
+    <script src="aktien.js"></script>
+
+</body>
+</html>

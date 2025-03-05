@@ -1,0 +1,180 @@
+/* Styling für das Bundesländer-Untermenü */
+.states-control-panel {
+    background-color: #f5f7fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.states-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.states-filters select {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: white;
+    min-width: 150px;
+}
+
+.states-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.small-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Styling für die Bundesländer-Karten */
+.state {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.state:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.state-focus {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: none;
+    animation: pulse 2s infinite;
+}
+
+.state.focused .state-focus {
+    display: block;
+}
+
+/* Zusätzliche Klasse für den aktuellen Kampagnenfokus */
+.state.active-campaign {
+    border: 2px solid var(--primary-color);
+    animation: pulse 2s infinite;
+}
+
+/* Farbkodierung für Ost- und Westdeutschland */
+.state[data-region="east"] { border-left: 3px solid #ff8a65; }
+.state[data-region="west"] { border-left: 3px solid #4285f4; }
+
+/* Legende für Regionen */
+.region-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0.5rem 0 1rem;
+    flex-wrap: wrap;
+}
+
+.region-legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.region-legend-color {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    border-radius: 2px;
+}
+
+.legend-east { background-color: #ff8a65; }
+.legend-west { background-color: #4285f4; }
+
+/* Styling für das regionale Kampagnen-Modal */
+#regional-campaign-modal .state-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.5rem;
+    margin: 1rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#regional-campaign-modal .state-option {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#regional-campaign-modal .state-option:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+#regional-campaign-modal .state-option.selected {
+    background-color: #e3f2fd;
+    border-color: var(--primary-color);
+}
+
+#regional-campaign-modal .state-option .state-marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.campaign-cost {
+    background-color: #f5f7fa;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+.campaign-options {
+    margin: 1rem 0;
+}
+
+.campaign-options h4 {
+    margin-bottom: 0.5rem;
+}
+
+.campaign-options select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Medien-Queries für Responsivität */
+@media (max-width: 768px) {
+    .states-control-panel {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .states-filters, .states-actions {
+        width: 100%;
+    }
+    
+    .states-filters select {
+        flex: 1;
+    }
+    
+    #regional-campaign-modal .state-selection {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
