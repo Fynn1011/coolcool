@@ -1,3 +1,5 @@
+// Modified version of index.js with lower but longer jumps
+
 const player = document.getElementById('player');
 const gameContainer = document.getElementById('game-container');
 const scoreDisplay = document.getElementById('score');
@@ -7,11 +9,26 @@ const startButton = document.getElementById('start-button');
 const restartButton = document.getElementById('restart-button');
 const finalScoreDisplay = document.getElementById('final-score');
 
+// Add high score tracking
+let highScore = localStorage.getItem('geometryDashHighScore') || 0;
+// Create high score display element
+const highScoreDisplay = document.createElement('div');
+highScoreDisplay.id = 'high-score';
+highScoreDisplay.style.position = 'absolute';
+highScoreDisplay.style.top = '20px';
+highScoreDisplay.style.left = '20px';
+highScoreDisplay.style.color = 'white';
+highScoreDisplay.style.fontSize = '24px';
+highScoreDisplay.textContent = `High: ${highScore}`;
+gameContainer.appendChild(highScoreDisplay);
+
 let isJumping = false;
 let gameRunning = false;
 let gameSpeed = 7;
-let gravity = 0.9;
-let jumpForce = -12;
+// Modified physics parameters for lower but longer jumps
+let gravity = 0.6;           // Reduced from 0.9 to make the player fall slower
+let jumpForce = -8;          // Changed from -12 to make initial jump height lower
+let horizontalMomentum = 0.5;  // Reduced momentum to prevent game speed issues
 let playerVelocity = 0;
 let score = 0;
 let obstacles = [];
@@ -33,6 +50,17 @@ function startGame() {
     gameRunning = true;
     score = 0;
     scoreDisplay.textContent = score;
+    
+    // Update high score display
+    highScoreDisplay.textContent = `High: ${highScore}`;
+    
+    // Clear all existing obstacles from the DOM
+    obstacles.forEach(obstacle => {
+        if (obstacle && obstacle.parentNode) {
+            obstacle.parentNode.removeChild(obstacle);
+        }
+    });
+    
     obstacles = [];
     nextObstacleTime = 0;
     gameSpeed = 5;
@@ -48,6 +76,16 @@ function endGame() {
     gameRunning = false;
     gameOverScreen.style.display = 'flex';
     finalScoreDisplay.textContent = `Punkte: ${score}`;
+    
+    // Update high score if current score is higher
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('geometryDashHighScore', highScore);
+        highScoreDisplay.textContent = `High: ${highScore}`;
+    }
+    
+    // Don't immediately remove obstacles to avoid visual glitches,
+    // they'll be properly cleared when the game restarts
 }
 
 function jump() {
@@ -82,7 +120,15 @@ function updateObstacles(deltaTime) {
         }
     }
     
-    const obstacleSpeed = gameSpeed * deltaTime / 16; // Für gleichmäßige Bewegung
+    // Modified obstacle speed for jumping players
+    // We'll use a fixed velocity boost rather than increasing overall game speed
+    let obstacleSpeed = gameSpeed * deltaTime / 16; // Base speed
+    
+    // Add horizontal momentum only to obstacles, not affecting game timing
+    if (isJumping) {
+        // Only increase obstacle movement speed, not the game's overall speed
+        obstacleSpeed += horizontalMomentum * deltaTime / 16;
+    }
     
     for (let i = obstacles.length - 1; i >= 0; i--) {
         const obstacle = obstacles[i];
@@ -99,6 +145,16 @@ function updateObstacles(deltaTime) {
             // Erhöhe Spielgeschwindigkeit alle 10 Punkte
             if (score % 10 === 0) {
                 gameSpeed += 0.8;
+            }
+            
+            // Update score display
+            scoreDisplay.textContent = score;
+            
+            // Check if we have a new high score during gameplay
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('geometryDashHighScore', highScore);
+                highScoreDisplay.textContent = `High: ${highScore}`;
             }
         }
         
