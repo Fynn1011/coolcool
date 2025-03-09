@@ -45,7 +45,7 @@ function findeVollkommeneZahlen(vonZahl, bisZahl) {
 // Beispiel: Finde vollkommene Zahlen zwischen 1 und 10000
 const bereich = {
     von: 1,
-    bis: 100000000000000000
+    bis: 10000
 };
 
 console.log(`Suche nach vollkommenen Zahlen im Bereich von ${bereich.von} bis ${bereich.bis}:`);
