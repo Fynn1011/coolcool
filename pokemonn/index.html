@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Pack Opening Tycoon</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pokémon Pack Opening Tycoon</h1>
+        
+        <div class="stats">
+            <div class="stat">
+                <div>Geld</div>
+                <div class="stat-value" id="money">100</div>
+            </div>
+            <div class="stat">
+                <div>Packs geöffnet</div>
+                <div class="stat-value" id="packs-opened">0</div>
+            </div>
+            <div class="stat">
+                <div>Karten gefunden</div>
+                <div class="stat-value" id="cards-found">0/150</div>
+            </div>
+            <div class="stat">
+                <div>Ruf</div>
+                <div class="stat-value" id="reputation">0</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="packs">Packs</div>
+            <div class="tab" data-tab="collection">Sammlung</div>
+            <div class="tab" data-tab="upgrades">Upgrades</div>
+            <div class="tab" data-tab="achievements">Erfolge</div>
+        </div>
+        
+        <div class="tab-content active" id="packs-tab">
+            <div class="packs-container" id="packs-container">
+                <!-- Packs werden hier dynamisch eingefügt -->
+            </div>
+            
+            <div class="cards-display" id="cards-display">
+                <!-- Geöffnete Karten werden hier angezeigt -->
+            </div>
+        </div>
+        
+        <div class="tab-content" id="collection-tab">
+            <div class="collection">
+                <h2>Deine Sammlung</h2>
+                <div>
+                    <span id="collection-stats">0/150 Karten gesammelt</span>
+                    <button id="sell-all-btn">Alle Duplikate verkaufen</button>
+                </div>
+                <div class="collection-grid" id="collection-grid">
+                    <!-- Sammlung wird hier angezeigt -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="upgrades-tab">
+            <div class="upgrade-shop">
+                <h2>Upgrades</h2>
+                <div class="upgrades" id="upgrades-container">
+                    <!-- Upgrades werden hier dynamisch eingefügt -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="achievements-tab">
+            <div class="achievements" id="achievements-container">
+                <h2>Erfolge</h2>
+                <!-- Erfolge werden hier dynamisch eingefügt -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="tutorial-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Willkommen beim Pokémon Pack Opening Tycoon!</h2>
+            <div class="tutorial">
+                <p>In diesem Spiel kannst du Pokémon-Packs kaufen, öffnen und eine Sammlung aufbauen.</p>
+                <p>Beginne mit dem Kauf von Basis-Packs und verkaufe deine Duplikate, um mehr Geld zu verdienen.</p>
+                <p>Verbessere dein Geschäft mit Upgrades und schalte neue Packtypen frei!</p>
+                <p>Viel Spaß beim Sammeln!</p>
+            </div>
+            <button id="start-btn">Los geht's!</button>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
